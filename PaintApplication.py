@@ -1,4 +1,5 @@
 from tkinter import * # type: ignore
+from tkinter import colorchooser,ttk
 
 class Paint():
 
@@ -24,14 +25,39 @@ class Paint():
         self.OldY=None
 
     def change_fg(self):
-        pass
+        self.ColorFG=colorchooser.askcolor(color=self.ColorFG)[1]
 
     def change_bg(self):
-        pass
+        self.ColorBG=colorchooser.askcolor(color=self.ColorBG)[1]
+        self.canvas['bg']=self.ColorBG
+
+    def changed_w(self,width):
+        self.PenWidth=width
+
+    def clicked(self):
+        self.slider.destroy()
+        self.newbutton=Button(self.win,text='>',command=self.change_width,width=1,height=1,
+                    activebackground='pink',activeforeground='dark red'
+                    ,bg='lightpink1',fg='IndianRed4',font='System',relief='ridge')
+        self.newbutton.pack()
+        self.newbutton.place(x=70,y=90)
+        self.button.destroy()
 
     def change_width(self):
-        pass
-
+        self.slider=ttk.Scale(from_=5, to=100, command=self.changed_w, orient='horizontal')
+        self.slider.set(self.PenWidth)
+        self.slider.grid(row=0, column=1)
+        self.slider.place(x=70,y=92)
+        self.button=Button(self.win,text='<',command=self.clicked,width=1,height=1,
+                    activebackground='pink',activeforeground='dark red'
+                    ,bg='lightpink1',fg='IndianRed4',font='System',relief='ridge')
+        self.button.pack()
+        self.button.place(x=175,y=92)
+        try:
+            self.newbutton.destroy()
+        except AttributeError:
+            pass
+    
     def save(self):
         pass
 
