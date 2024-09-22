@@ -7,10 +7,21 @@ class Paint():
         self.ColorFG='Black'
         self.ColorBG='White'
         self.PenWidth=5
+        self.OldX=None
+        self.OldY=None
         self.widgets()
+        self.canvas.bind('<B1-Motion>', self.paint)
+        self.canvas.bind('<ButtonRelease-1>', self.reset)
 
-    def paint(self):
-        pass
+    def paint(self,e):
+        if self.OldX and self.OldY:
+            self.canvas.create_line(self.OldX,self.OldY,e.x,e.y,width=self.PenWidth,fill=self.ColorFG,capstyle='round',smooth=True)
+        self.OldX=e.x
+        self.OldY=e.y
+
+    def reset(self,e):
+        self.OldX=None
+        self.OldY=None
 
     def change_fg(self):
         pass
