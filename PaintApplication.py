@@ -37,6 +37,13 @@ class Paint():
 
     def changed_w(self,width):
         self.PenWidth=width
+    
+    def clear_canvas(self):
+        response=messagebox.askquestion('Clearing canvas!','Are you sure you want to delete your work?')
+        if response=='yes':
+            self.canvas.delete(ALL)
+        else:
+            pass
 
     def clicked(self):
         self.slider.destroy()
@@ -99,7 +106,7 @@ class Paint():
         self.win.configure(background='MistyRose')
         self.win.geometry('1500x800')
         buttons=[]
-        for i in range(6):
+        for i in range(7):
             button=Button(self.win,text='',command='',width=1,height=1,
                     activebackground='AntiqueWhite1',activeforeground='HotPink4'
                     ,bg='lightpink1',fg='IndianRed4',font='System',relief='ridge')
@@ -111,6 +118,7 @@ class Paint():
         buttons[3].config(text='Pen color',command=self.change_fg,width=7,height=1)
         buttons[4].config(text='Pen width',command=self.change_width,width=7,height=1)
         buttons[5].config(text='BG color',command=self.change_bg,width=7,height=1)
+        buttons[6].config(text='Clear canvas',command=self.clear_canvas,width=10,height=1)
     
         n=0
         for button in buttons:
